@@ -40,15 +40,15 @@ exports.getAccount = catchAsync(async (req, res) => {
 });
 
 exports.getMyTours = catchAsync(async (req, res, next) => {
-  // USE VIRTUAL POPULATE
-  const bookings = await Booking.find({ user: req.user.id }).populate('tour');
-  const tours = await bookings.map(el => el.tour);
+  // // USE VIRTUAL POPULATE
+  // const bookings = await Booking.find({ user: req.user.id }).populate('tour');
+  // const tours = await bookings.map(el => el.tour);
   // console.log(tours);
   //1) Find all bookings
-  // const bookings = await Booking.find({ user: req.user.id });
-  // //2) Find tours with returned ids
-  // const tourIDs = bookings.map(el => el.tour);
-  // const tours = await Tour.find({ _id: { $in: tourIDs } });
+  const bookings = await Booking.find({ user: req.user.id });
+  //2) Find tours with returned ids
+  const tourIDs = bookings.map(el => el.tour);
+  const tours = await Tour.find({ _id: { $in: tourIDs } });
   res.status(200).render('overview', {
     title: 'My Tours',
     tours
