@@ -43,7 +43,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   // USE VIRTUAL POPULATE
   const bookings = await Booking.find({ user: req.user.id }).populate('tour');
   const tours = await bookings.map(el => el.tour);
-  console.log(tours);
+  // console.log(tours);
   //1) Find all bookings
   // const bookings = await Booking.find({ user: req.user.id });
   // //2) Find tours with returned ids
